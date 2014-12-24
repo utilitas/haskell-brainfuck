@@ -4,14 +4,7 @@ import Data.ByteString.Internal (w2c, c2w)
 import System.Environment (getArgs)
 
 type Machine = ([Word8], Word8, [Word8])
-data Instruction =  PIncr
-                   |PDecr
-                   |CIncr
-                   |CDecr
-                   |Print
-                   |Read
-                   |Loop [Instruction]
-                   deriving (Eq, Show)
+data Instruction = PIncr|PDecr|CIncr|CDecr|Print|Read|Loop [Instruction] deriving (Eq, Show)
 
 compile :: String -> [Instruction]
 compile str = fst $ compile' ([], str)
