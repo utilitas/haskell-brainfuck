@@ -1,6 +1,7 @@
 module Main where
 import Data.Word (Word8)
 import Data.ByteString.Internal (w2c, c2w)
+import Control.Monad (void)
 import System.Environment (getArgs)
 
 type Machine = ([Word8], Word8, [Word8])
@@ -22,8 +23,8 @@ compile str = fst $ compile' ([], str)
     compile' (acc,']':xs) = (reverse acc, xs)
     compile' (acc, _:xs) = compile' (acc, xs) -- ignore any other character.
 
-run :: [Instruction] -> IO ()
-run instructions = run' instructions (repeat 0, 0, repeat 0) >> return ()
+run :: [Instruction] -> IO Machine
+run instructions = run' instructions (repeat 0, 0, repeat 0)
   where
     run' :: [Instruction] -> Machine -> IO Machine
     run' [] m = return m
@@ -38,4 +39,4 @@ run instructions = run' instructions (repeat 0, 0, repeat 0) >> return ()
 
 main = do
          filename <- fmap (!!0) getArgs
-         readFile filename >>= run . compile
+         readFile filename >>= void . run . compile
