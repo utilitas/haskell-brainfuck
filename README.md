@@ -1,12 +1,14 @@
 haskell-brainfuck
 =================
 
-Brainfuck interpreter written in Haskell.
+Brainfuck interpreter and Brainfuck to C translator written in Haskell.
 
-# Use
+# Usage
 
 ```
-prompt> ./brainfuck "+++++++++[>++++++++>+++++++++++>+++++<<<-]>.>++.+++++++..+++.>-.------------.<++++++++.--------.+++.------.--------.>+."
+prompt> ./brainfuck foo.bf
 
-Hello, World!
+prompt> ./Bf2c foo.bf > foo.c
+prompt> gcc -o foo foo.c
+prompt> ./foo
 ```
