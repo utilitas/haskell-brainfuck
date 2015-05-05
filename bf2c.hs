@@ -36,6 +36,8 @@ compile str = fst $ compile' ([], str)
 -- translate instructions into a C code.
 translate :: [Instruction] -> String
 translate [] = ""
+translate (Loop [PDecr 1]:xs) = "p=m;" ++ translate xs
+translate (Loop [CDecr 1]:xs) = "*p=0;" ++ translate xs
 translate (PIncr 1:xs) = "p++;" ++ translate xs
 translate (PDecr 1:xs) = "p--;" ++ translate xs
 translate (CIncr 1:xs) = "(*p)++;" ++ translate xs
